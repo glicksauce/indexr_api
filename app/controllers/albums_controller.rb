@@ -27,7 +27,8 @@ class AlbumsController < ApplicationController
 
   # PATCH/PUT /albums/1
   def update
-    if @album.update(album_params)
+    if @album.update(tags: params[:tags])
+      # render json: album_params
       render json: @album
     else
       render json: @album.errors, status: :unprocessable_entity

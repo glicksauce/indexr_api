@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  resources :albums, only: [:index, :show]
+  resources :albums, only: [:index]
   resources :users, only: [:index, :show, :create] do
-    resources :albums, only: [:create]
+    resources :albums, only: [:create, :show, :update]
   end
 end
   # namespace :auth do
