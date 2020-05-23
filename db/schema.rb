@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_23_190657) do
+ActiveRecord::Schema.define(version: 2020_05_23_192640) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,8 @@ ActiveRecord::Schema.define(version: 2020_05_23_190657) do
     t.string "image_name"
     t.date "client_modified_date"
     t.string "tags", default: [], array: true
+    t.string "image_id"
+    t.index ["image_id"], name: "index_albums_on_image_id", unique: true
   end
 
   create_table "users", id: false, force: :cascade do |t|
