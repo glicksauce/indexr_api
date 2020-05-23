@@ -47,6 +47,6 @@ class AlbumsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def album_params
-      params.require(:album).permit(:img_src, :dbx_user_id)
+      params.require(:album).permit(:dbx_user_id, :img_src, :image_path, :image_name, :client_modified_date, :tags)
     end
 end

@@ -10,16 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_23_165912) do
+ActiveRecord::Schema.define(version: 2020_05_23_190657) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "albums", force: :cascade do |t|
-    t.string "img_src"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "dbx_user_id"
+    t.string "image_path"
+    t.string "image_name"
+    t.date "client_modified_date"
+    t.string "tags", default: [], array: true
   end
 
   create_table "users", id: false, force: :cascade do |t|
