@@ -10,8 +10,7 @@ class AlbumsController < ApplicationController
 
   # GET /albums/1
   def show
-    send_file '/rabbit.png', type: 'image/png', disposition: 'inline'
-    # send_file "/home/jgman/Desktop/Screenshot%20from%202020-04-25%2021-21-01.png") 
+    render json: @album
 
   end
 
@@ -43,11 +42,11 @@ class AlbumsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_album
-      @album = Album.find(params[:id])
+      @album = Album.where(dbx_user_id: params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
     def album_params
-      params.require(:album).permit(:img_src)
+      params.require(:album).permit(:img_src, :dbx_user_id)
     end
 end

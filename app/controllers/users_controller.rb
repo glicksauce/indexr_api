@@ -10,7 +10,7 @@ class UsersController < ApplicationController
 
   # GET /users/1
   def show
-    render json: @user
+    render json: @user.to_json(include: :albums)
   end
 
   # POST /users
@@ -41,6 +41,7 @@ class UsersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
+      #lookup by dbx_id instead of default id
       @user = User.find(params[:id])
     end
 

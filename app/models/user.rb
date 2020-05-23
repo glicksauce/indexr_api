@@ -1,3 +1,4 @@
 class User < ApplicationRecord
-    has_many :albums
+    self.primary_key = :dbx_id
+    has_many :albums, foreign_key: :dbx_user_id
 end

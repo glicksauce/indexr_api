@@ -7,5 +7,8 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 Album.create([
-    {img_src: "file:///home/jgman/Desktop/Screenshot%20from%202020-04-25%2021-21-01.png"}
+    {
+        img_src: "/testimage.jpg",
+        dbx_user_id: "dbid:AAC0kpxvzYaXF5xqVPwR68zdH8hvLT-_TlY",
+    }
 ])
