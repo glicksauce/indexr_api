@@ -40,6 +40,14 @@ class AlbumsController < ApplicationController
     @album.destroy
   end
 
+  # tagsearch /users/:user_id/tagsearch/:tags(.:format) 
+  def show
+    # tagsArr = JSON.parse(params[:id])
+    @albums = Album.where(dbx_user_id: params[:user_id]).where(tags: ['map'])
+
+    render json: @albums
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_album
@@ -48,6 +56,6 @@ class AlbumsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def album_params
-      params.require(:album).permit(:image_id, :dbx_user_id, :img_src, :image_path, :image_name, :client_modified_date, :tags)
+      params.require(:album).permit(:image_id, :dbx_user_id, :image_path, :image_name, :client_modified_date, :tags)
     end
 end
