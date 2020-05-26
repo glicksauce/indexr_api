@@ -16,13 +16,19 @@ class AlbumsController < ApplicationController
 
   # POST /albums
   def create
-    @album = Album.new(album_params)
-
-    if @album.save
-      render json: @album, status: :created, location: @album
+     @albumCheck = Album.where(image_id: album_params[:image_id])
+        #  render json: album_params
+    if @albumCheck == nil || @albumCheck == []
+          @album = Album.new(album_params)
+          if @album.save
+            render json: @album
+          else
+            render json: @album.errors, status: :unprocessable_entity
+          end
     else
-      render json: @album.errors, status: :unprocessable_entity
+      render json: {"image_id": album_params[:image_id], "record_already_exists": true}
     end
+
   end
 
   # PATCH/PUT /albums/1
@@ -42,10 +48,12 @@ class AlbumsController < ApplicationController
 
   # tagsearch /users/:user_id/tagsearch/:tags(.:format) 
   def show
-    # tagsArr = JSON.parse(params[:id])
-    @albums = Album.where(dbx_user_id: params[:user_id]).where(tags: ['map'])
-
-    render json: @albums
+    # tagsArr = JSON.parse(params[:tags])
+    @albums = Album.where(dbx_user_id: params[:user_id]).in(tags: params[:tags])
+    # @albums = Album.where(tags: params[:tags].split(','))
+    # @albums = Album.where(:tags => params[:tags].split(','))
+    # @albums = Album.where("tags in ?", params[:tags].to_s)
+    render json: @albums    
   end
 
   private
@@ -56,6 +64,6 @@ class AlbumsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def album_params
-      params.require(:album).permit(:image_id, :dbx_user_id, :image_path, :image_name, :client_modified_date, :tags)
+      params.require(:album).permit(:album_url, :albums_url, :image_id, :dbx_user_id, :image_path, :image_name, :client_modified_date, :tags)
     end
 end
